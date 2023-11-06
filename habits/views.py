@@ -2,14 +2,17 @@ from rest_framework import viewsets, generics
 from rest_framework.permissions import IsAuthenticated
 
 from habits.models import Habits
+from habits.pagination import MyPagination
 from habits.permissions import ViewSetPermission
 from habits.serializers import HabitsSerializer
 
 
 class HabitsViewSet(viewsets.ModelViewSet):
+    pagination_class = MyPagination
     serializer_class = HabitsSerializer
     queryset = Habits.objects.all()
     permission_classes = (ViewSetPermission, )
+
 
     def perform_create(self, serializer):
         new_habit = serializer.save()
@@ -25,3 +28,17 @@ class HabitsListAPI(generics.ListAPIView):
     queryset = Habits.objects.all()
     permission_classes = [IsAuthenticated]
 
+class MyPagination(PageNumberPagination):
+    page_size = 10  # Количество элементов на странице
+    page_size_query_param = 'page_size'  # Параметр запроса для указания количества элементов на странице
+    max_page_size = 100  # Максимальное количество элементов на странице
+
+# views.py
+class MyView(APIView):
+    pagination_class = MyPagination
+
+    def get(self, request):
+        queryset = MyModel.objects.all()
+        paginated_queryset = self.paginate_queryset(queryset)
+        serializer = MySerializer(paginated_queryset, many=True)
+        return self.get_paginated_response(serializer.data)
