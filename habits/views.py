@@ -21,12 +21,6 @@ class HabitsViewSet(viewsets.ModelViewSet):
         if not Habits.objects.get(pk=new_habit.linked_id).is_pleasant:
             raise "A related habit can only be pleasant"
 
-    def get(self, request):
-        queryset = Habits.objects.all()
-        paginated_queryset = self.paginate_queryset(queryset)
-        serializer = HabitsSerializer(paginated_queryset, many=True)
-        return self.get_paginated_response(serializer.data)
-
 
 
 class HabitsListAPI(generics.ListAPIView):
