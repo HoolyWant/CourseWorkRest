@@ -18,6 +18,8 @@ generics = "^6.0.0"
 psycopg2-binary = "^2.9.9"
 drf-yasg = "^1.21.7"
 coreapi = "^2.3.3"
+django-cors-headers = "^4.3.0"
+telebot = "^0.0.5"
 
 
 [build-system]
