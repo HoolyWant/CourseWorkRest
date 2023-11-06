@@ -21,3 +21,6 @@ class ViewSetPermission(BasePermission):
             return False
 
 
+class IsStaff(BasePermission):
+    def has_permission(self, request, view):
+        return request.user.is_staff
