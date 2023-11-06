@@ -1,5 +1,7 @@
 from django.db import models
 
+from users.models import User
+
 NULLABLE = {'blank': True, 'null': True}
 
 
@@ -22,15 +24,15 @@ class Habits(models.Model):
         (DAILY, 'ежедневно'),
     )
 
-    owner = models.ForeignKey('User', on_delete=models.CASCADE, verbose_name='владелец', **NULLABLE)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='владелец', **NULLABLE, related_name='habits')
     location = models.CharField(max_length=100, default='где угодно', verbose_name='место выполнения')
     time = models.TimeField(verbose_name='время выполнения')
     action = models.CharField(max_length=500, verbose_name='действие')
     is_pleasant = models.BooleanField(default=False, verbose_name='признак приятной привычки')
     linked = models.ForeignKey('self', on_delete=models.SET_NULL, verbose_name='связанная привычка', **NULLABLE)
     period = models.CharField(max_length=20, choices=PERIODS, default=DAILY, verbose_name='периодичность привычки')
-    reward = models.CharField(max_length=500, verbose_name='награда за выполнение')
-    length = models.IntegerField(default=60, verbose_name='время на выполнение')
+    reward = models.CharField(max_length=500, verbose_name='награда за выполнение', **NULLABLE)
+    limit = models.IntegerField(default=60, verbose_name='время на выполнение')
     is_public = models.BooleanField(default=False, verbose_name='публикация')
 
     def __str__(self):
