@@ -31,8 +31,8 @@ class Habits(models.Model):
     is_pleasant = models.BooleanField(default=False, verbose_name='признак приятной привычки')
     linked = models.ForeignKey('self', on_delete=models.SET_NULL, verbose_name='связанная привычка', **NULLABLE)
     period = models.CharField(max_length=20, choices=PERIODS, default=DAILY, verbose_name='периодичность привычки')
-    reward = models.CharField(max_length=500, verbose_name='награда за выполнение')
-    limit = models.IntegerField(default=60, verbose_name='время на выполнение'),
+    reward = models.CharField(max_length=500, verbose_name='награда за выполнение', **NULLABLE)
+    limit = models.IntegerField(default=60, verbose_name='время на выполнение')
     is_public = models.BooleanField(default=False, verbose_name='публикация')
 
     def __str__(self):
