@@ -10,36 +10,40 @@ from users.models import User
 
 class HabitsApiTestCAse(APITestCase):
     def setUp(self) -> None:
-        self.user = User.objects.create(email='testuser@mail.ru', password='test', tg_chat_id='dd', tg_username='dd')
+        self.user = User.objects.create(email='testuser@mail.ru', password='test', tg_chat_id='dd',
+                                        tg_username='dd')
         self.client.force_authenticate(user=self.user)
         self.data = {
             "time": "10:05",
             "is_pleasant": True,
-            "linked": True,
             "action": "Съесть грушу",
             "period": "4",
-            "is_public": True
+            "is_public": True,
+            "limit": 60
             }
         self.patch_data = {
             "time": "12:05",
-            "action": "Выпить воды",
-            "is_public": False
             }
 
         self.model = Habits.objects.create(time='12:12', action='test3', reward='test3')
 
     def test_get(self):
-        response = self.client.get(reverse('/habits/'))
+        response = self.client.get('/habits/')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_post(self):
-        response = self.client.post(reverse('/habits/'), data=self.data)
+        response = self.client.post('/habits/', data=self.data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
     def test_patch(self):
-        response = self.client.patch(f'/lesson/edit/{self.model.id}', data=self.patch_data)
+        response = self.client.patch(f'/habits/{self.model.id}/', data=self.patch_data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_delete(self):
-        response = self.client.delete(f'/lesson/delete/{self.model.id}')
+        response = self.client.delete(f'/habits/{self.model.id}/')
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
+    def test_get_public(self):
+        response = self.client.get('/habits/public/')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
