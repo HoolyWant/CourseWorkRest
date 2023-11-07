@@ -27,7 +27,7 @@ class HabitsViewSet(viewsets.ModelViewSet):
 
 class HabitsListAPI(generics.ListAPIView):
     serializer_class = HabitsSerializer
-    queryset = Habits.objects.filter(public=True)
+    queryset = Habits.objects.filter(is_public=True)
     permission_classes = [IsAuthenticated]
 
 
