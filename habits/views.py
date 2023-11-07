@@ -1,6 +1,4 @@
-from django.shortcuts import get_list_or_404
-from requests import Response
-from rest_framework import viewsets, generics, status
+from rest_framework import viewsets, generics
 from rest_framework.permissions import IsAuthenticated
 
 from habits.models import Habits

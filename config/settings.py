@@ -74,7 +74,7 @@ SIMPLE_JWT = {
 
 CELERY_BEAT_SCHEDULE = {
     'task-name': {
-        'task': 'school.tasks.check_user_activity',  # Путь к задаче
+        'task': 'habits.tasks.telegram_habit_mailling',  # Путь к задаче
         'schedule': timedelta(minutes=1),  # Расписание выполнения задачи (например, каждые 10 минут)
     },
 }
@@ -100,10 +100,10 @@ if CACHE_ENABLED:
     }
 
 # URL-адрес брокера сообщений
-CELERY_BROKER_URL = 'redis://localhost:6379' # Например, Redis, который по умолчанию работает на порту 6379
+CELERY_BROKER_URL = os.getenv('LOCATION') # Например, Redis, который по умолчанию работает на порту 6379
 
 # URL-адрес брокера результатов, также Redis
-CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+CELERY_RESULT_BACKEND = os.getenv('LOCATION')
 
 # Флаг отслеживания выполнения задач
 CELERY_TASK_TRACK_STARTED = True
@@ -118,7 +118,10 @@ CORS_ALLOWED_ORIGINS = [
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:8000",
 ]
-
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'Asia/Erevan'
 CORS_ALLOW_ALL_ORIGINS = False
 
 ROOT_URLCONF = 'config.urls'
