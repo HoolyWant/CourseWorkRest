@@ -1,4 +1,6 @@
-from rest_framework import viewsets, generics
+from django.shortcuts import get_list_or_404
+from requests import Response
+from rest_framework import viewsets, generics, status
 from rest_framework.permissions import IsAuthenticated
 
 from habits.models import Habits
@@ -20,7 +22,7 @@ class HabitsViewSet(viewsets.ModelViewSet):
         if not Habits.objects.get(pk=new_habit.linked_id).is_pleasant:
             raise "A related habit can only be pleasant"
 
-    def list(self, request, *args, **kwargs):
+    def get_queryset(self):
         user = self.request.user
         return Habits.objects.filter(owner=user)
 
@@ -29,6 +31,5 @@ class HabitsListAPI(generics.ListAPIView):
     serializer_class = HabitsSerializer
     queryset = Habits.objects.filter(is_public=True)
     permission_classes = [IsAuthenticated]
-
 
 

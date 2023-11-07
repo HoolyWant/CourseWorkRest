@@ -46,12 +46,12 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'rest_framework.authtoken',
-    'django_filters',
     'django_celery_beat',
     'drf_yasg',
     'corsheaders',
+    'django_filters',
 
-    'school',
+    'habits',
     'users',
 ]
 
@@ -90,7 +90,7 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
 ]
 
-CACHE_ENABLED = os.getenv('CACHE_ENABLED') == True
+CACHE_ENABLED = os.getenv('CACHE_ENABLED') is True
 
 if CACHE_ENABLED:
     CACHES = {
@@ -148,7 +148,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'DjangoRest',
+        'NAME': os.getenv('DB_NAME'),
         'HOST': 'localhost',
         'USER': 'postgres',
         'PASSWORD': os.getenv('PASSWORD_DB'),

@@ -46,3 +46,4 @@ class Habits(models.Model):
 class Logs(models.Model):
     habit = models.ForeignKey(Habits, on_delete=models.CASCADE, verbose_name='привычка', **NULLABLE)
     last_attempt = models.DateTimeField(verbose_name='последняя отправка')
+

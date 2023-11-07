@@ -4,7 +4,7 @@ from django.core.management import BaseCommand
 from dotenv import load_dotenv
 
 from config.settings import BASE_DIR
-from habits.models import Habits
+from habits.models import Habits, Logs
 from users.models import User
 
 dot_env = os.path.join(BASE_DIR, '.env')
@@ -14,6 +14,7 @@ load_dotenv(dotenv_path=dot_env)
 class Command(BaseCommand):
 
     def handle(self, *args, **options):
+        Logs.objects.all().delete()
         Habits.objects.all().delete()
         User.objects.all().delete()
         users_list = [
