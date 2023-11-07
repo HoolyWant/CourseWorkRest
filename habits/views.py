@@ -20,7 +20,7 @@ class HabitsViewSet(viewsets.ModelViewSet):
         if not Habits.objects.get(pk=new_habit.linked_id).is_pleasant:
             raise "A related habit can only be pleasant"
 
-    def list(self, request, *args, **kwargs):
+    def get_queryset(self):
         user = self.request.user
         return Habits.objects.filter(owner=user)
 
@@ -29,6 +29,5 @@ class HabitsListAPI(generics.ListAPIView):
     serializer_class = HabitsSerializer
     queryset = Habits.objects.filter(is_public=True)
     permission_classes = [IsAuthenticated]
-
 
 

@@ -8,7 +8,7 @@ from config.settings import BASE_DIR
 dot_env = os.path.join(BASE_DIR, '.env')
 load_dotenv(dotenv_path=dot_env)
 
-bot = telebot.Telebot(os.getenv('TELEBOT_API_KEY'))
+bot = telebot.TeleBot(os.getenv('TELEBOT_API_KEY'))
 
 
 def send_notify(habit):

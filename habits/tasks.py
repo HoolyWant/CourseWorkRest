@@ -1,11 +1,9 @@
 from datetime import datetime, timedelta
 
 from celery import shared_task
-from dateutil.relativedelta import relativedelta
 
 from habits.models import Habits, Logs
 from habits.telegram_bot import send_notify
-from users.models import User
 
 
 @shared_task
