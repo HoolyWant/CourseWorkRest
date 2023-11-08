@@ -17,9 +17,9 @@ class HabitsViewSet(viewsets.ModelViewSet):
         new_habit = serializer.save()
         if new_habit.is_pleasant and new_habit.reward is not None or new_habit.is_pleasant and new_habit.linked is not None:
             raise "The habit can't be pleasant, if you have reward or related habit"
-        # if not Habits.objects.get(id=new_habit.linked_id).__dict__['is_pleasant']:
-        #     raise "A related habit can only be pleasant"
-        # new_habit.save()
+        new_habit.user = self.request.user
+
+        new_habit.save()
 
     def get_queryset(self):
         user = self.request.user
