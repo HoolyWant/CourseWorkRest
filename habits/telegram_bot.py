@@ -4,6 +4,7 @@ from datetime import datetime
 import telebot
 from dotenv import load_dotenv
 from config.settings import BASE_DIR
+from habits.models import Logs
 
 dot_env = os.path.join(BASE_DIR, '.env')
 load_dotenv(dotenv_path=dot_env)
@@ -31,3 +32,4 @@ def send_notify(habit):
                                                 f'чтобы выполнить эту привычку!'
                                                 f'После выполнения в виде аознаграждения'
                                                 f'вы можете {habit.reward}')
+    Logs.objects.create(habit=habit)
