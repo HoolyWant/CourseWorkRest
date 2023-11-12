@@ -9,6 +9,3 @@ class TimeLimitValidator:
         tmp_val = dict(value).get(self.field)
         if int(tmp_val) > 120:
             raise serializers.ValidationError("The limit can only be less than 120s.")
-
-
-

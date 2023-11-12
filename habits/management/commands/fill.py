@@ -71,4 +71,3 @@ class Command(BaseCommand):
                                   limit=habit['limit'],
                                   is_public=habit['is_public']
                                   )
-

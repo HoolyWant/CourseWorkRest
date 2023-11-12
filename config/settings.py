@@ -61,8 +61,7 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
 
-    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
-        'PAGE_SIZE': 10
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema'
 }
 
 
@@ -100,7 +99,7 @@ if CACHE_ENABLED:
     }
 
 # URL-адрес брокера сообщений
-CELERY_BROKER_URL = os.getenv('LOCATION') # Например, Redis, который по умолчанию работает на порту 6379
+CELERY_BROKER_URL = os.getenv('LOCATION')  # Например, Redis, который по умолчанию работает на порту 6379
 
 # URL-адрес брокера результатов, также Redis
 CELERY_RESULT_BACKEND = os.getenv('LOCATION')
@@ -195,8 +194,6 @@ AUTH_USER_MODEL = 'users.User'
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
-
-CELERY_TIMEZONE = TIME_ZONE
 
 USE_I18N = True
 

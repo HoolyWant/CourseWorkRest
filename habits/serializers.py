@@ -12,6 +12,3 @@ class HabitsSerializer(serializers.ModelSerializer):
         validators = [
             TimeLimitValidator(field='limit'),
         ]
-
-
-

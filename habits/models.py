@@ -24,7 +24,8 @@ class Habits(models.Model):
         (DAILY, 'ежедневно'),
     )
 
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='владелец', **NULLABLE, related_name='habits')
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='владелец',
+                              **NULLABLE, related_name='habits')
     location = models.CharField(max_length=100, default='где угодно', verbose_name='место выполнения')
     time = models.TimeField(verbose_name='время выполнения')
     action = models.CharField(max_length=500, verbose_name='действие')
@@ -46,4 +47,3 @@ class Habits(models.Model):
 class Logs(models.Model):
     habit = models.ForeignKey(Habits, on_delete=models.CASCADE, verbose_name='привычка', **NULLABLE)
     last_attempt = models.DateTimeField(auto_now_add=True, verbose_name='последняя отправка')
-

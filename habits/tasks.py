@@ -28,11 +28,3 @@ def telegram_habit_mailling() -> None:
                 send_notify(habit)
             elif habit.period == '6' and datetime.today().weekday() not in weekends[1]:
                 send_notify(habit)
-
-
-
-
-
-
-
-

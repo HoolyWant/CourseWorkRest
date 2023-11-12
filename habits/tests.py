@@ -1,6 +1,4 @@
-from django.test import TestCase
 from rest_framework import status
-from rest_framework.reverse import reverse
 
 from rest_framework.test import APITestCase
 
@@ -46,4 +44,3 @@ class HabitsApiTestCAse(APITestCase):
     def test_get_public(self):
         response = self.client.get('/habits/public/')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-

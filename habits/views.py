@@ -15,7 +15,8 @@ class HabitsViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         new_habit = serializer.save()
-        if new_habit.is_pleasant and new_habit.reward is not None or new_habit.is_pleasant and new_habit.linked is not None:
+        if (new_habit.is_pleasant and new_habit.reward is not None or
+                new_habit.is_pleasant and new_habit.linked is not None):
             raise "The habit can't be pleasant, if you have reward or related habit"
         new_habit.user = self.request.user
 
@@ -30,5 +31,3 @@ class HabitsListAPI(generics.ListAPIView):
     serializer_class = HabitsSerializer
     queryset = Habits.objects.filter(is_public=True)
     permission_classes = [IsAuthenticated]
-
-
