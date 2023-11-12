@@ -21,9 +21,10 @@ class HabitsApiTestCAse(APITestCase):
             }
         self.patch_data = {
             "time": "12:05",
+            "limit": 70,
             }
 
-        self.model = Habits.objects.create(time='12:12', action='test3', reward='test3')
+        self.model = Habits.objects.create(owner=self.user, time='12:12', action='test3', reward='test3', limit=60)
 
     def test_get(self):
         response = self.client.get('/habits/')

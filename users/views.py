@@ -4,7 +4,6 @@ from rest_framework.permissions import AllowAny, IsAdminUser
 from rest_framework.response import Response
 from rest_framework_simplejwt.views import TokenObtainPairView
 
-from habits.permissions import IsStaff
 from users.models import User
 from users.serializers import RegisterSerializer, MyTokenObtainPairSerializer
 
@@ -29,4 +28,4 @@ class MyTokenObtainPairView(TokenObtainPairView):
 class UserRetrieveApi(generics.RetrieveAPIView):
     serializer_class = RegisterSerializer
     queryset = User.objects.all()
-    permission_classes = [IsStaff | IsAdminUser]
+    permission_classes = [IsAdminUser]
